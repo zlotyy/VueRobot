@@ -1,12 +1,11 @@
 <template>
   <div id="app">
-    Root Foo: {{rootFoo}} <br/>
+    <!-- Root Foo: {{rootFoo}} <br/>
     Robots Foo: {{robotsFoo}} <br/>
     Users Foo: {{usersFoo}} <br/>
     <br/>
     Root Getter Foo: {{rootGetterFoo}} <br/>
-    Robots Getter Foo: {{robotsGetterFoo}} <br/>
-    Users Getter Foo: {{usersGetterFoo}} <br/>
+    Robots Getter Foo: {{robotsGetterFoo}} <br/> -->
 
     <header>
       <nav>
@@ -45,28 +44,37 @@
 </template>
 
 <script>
+import { mapState, mapGetters } from 'vuex';
 
 export default {
   name: 'app',
   computed: {
-    rootFoo() {
-      return this.$store.state.foo;
-    },
-    robotsFoo() {
-      return this.$store.state.robots.foo;
-    },
-    usersFoo() {
-      return this.$store.state.users.foo;
-    },
-    rootGetterFoo() {
-      return this.$store.getters.foo;
-    },
-    robotsGetterFoo() {
-      return this.$store.getters['robots/foo'];
-    },
-    usersGetterFoo() {
-      return this.$store.getters['users/foo'];
-    },
+    ...mapState({
+      rootFoo: 'foo',
+      usersFoo: state => state.users.foo,
+    }),
+    ...mapState('robots', { robotsFoo: 'foo' }),
+    ...mapGetters({ rootGetterFoo: 'foo' }),
+    ...mapGetters('robots', { robotsGetterFoo: 'foo' }),
+    // ten sam zapis:
+    // rootFoo() {
+    //   return this.$store.state.foo;
+    // },
+    // usersFoo() {
+    //   return this.$store.state.users.foo;
+    // },
+    // robotsFoo() {
+    //   return this.$store.state.robots.foo;
+    // },
+    // rootGetterFoo() {
+    //   return this.$store.getters.foo;
+    // },
+    // robotsGetterFoo() {
+    //   return this.$store.getters['robots/foo'];
+    // },
+    // usersGetterFoo() {
+    //   return this.$store.getters['users/foo'];
+    // },
     cart() {
       return this.$store.state.robots.cart;
     },
