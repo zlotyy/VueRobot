@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 export default {
+  namespaced: true,
   state: {
     cart: [],
     parts: null,
@@ -31,4 +32,3 @@ export default {
     },
   },
 };
-
